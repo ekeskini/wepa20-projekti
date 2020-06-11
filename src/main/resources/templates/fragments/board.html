@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="fragments/layout :: head(title='Application home')" lang="en">
+        <meta charset="UTF-8" />
+        <title>Home</title>
+    </head>
+    <body>
+        <section th:fragment="postformat(postparameter)" class="container" style="padding: 10px">
+            <div class="row" style="background-color:aquamarine">
+                <div class="col-2">
+                    <p th:text="${#temporals.format(postparameter.timestamp, 'yyyy-MM-dd HH:mm')}">Timestamp</p>
+                </div>
+                <div class="col-4">
+                    <p th:text="${postparameter.poster.username}">Poster</p>
+                </div>
+                
+                
+            </div>
+            <div class="row" style="background-color:aquamarine">
+                <div class="col-2"></div>
+                <div class="col-6">
+                    <p th:text="${postparameter.content}">Content</p>
+                </div>
+                
+            </div>
+        </section>
+    </body>

@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
@@ -21,7 +23,9 @@ import wepa20.Comment.Comment;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Post extends AbstractPersistable<Long>{
-    
+        @ManyToOne
+        private Account poster;
+        
 	private LocalDateTime timestamp;
 	
 	@NotEmpty

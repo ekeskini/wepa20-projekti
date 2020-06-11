@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import javax.validation.Valid;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,23 +15,26 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import wepa20.Account.Account;
+import wepa20.BoardBuilderService;
 
 @Controller
 public class PostController {
 	@Autowired
-	private PostService postservice;
+        public BoardBuilderService boardBuilder;
 	
 	@GetMapping("/home")
-	public String viewHome(Model model) {
-		
-		model.addAttribute("posts", postservice.getPostsByPage(0));		
+	public String viewHome(Model model) {		
+		model.addAttribute("posts", boardBuilder.getPostsByPage(0));		
 		return "home";
 	}
 	
 	@PostMapping("/home")
 	public String addPost(@RequestParam String content) {
-		Post post = new Post(LocalDateTime.now(), content);
-		postservice.saveNewPost(post);
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+                Account acc = boardBuilder.getAccountByUsername(username);
+                Post post = new Post(acc, LocalDateTime.now(), content);
+		boardBuilder.saveNewPost(post);
 		
 		return "redirect:/home";
 	}

@@ -1,17 +1,16 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-    <head>
+    <head th:replace="fragments/layout :: head(title='Application home')" lang="en">
         <meta charset="UTF-8" />
-        <title>Application homepage</title>
+        <title>Home</title>
     </head>
     <body>
-        <ul>
-            <div th:each="post : ${posts}">
-                <div th:text="${#temporals.format(post.timestamp, 'yyyy-MM-dd HH:mm')}">timestamp</div>
-                <div th:text="${post.content}">content</div>
-            <div>
-        </ul>
 
+        
+            <div th:each="post : ${posts}">
+                <div th:replace="fragments/board :: postformat(postparameter=${post})">Post</div>
+            </div>
+       
         <form th:action="@{/home}" method="POST">
             <input type="text" name="content"/>
             <input type="submit" value="Post!"/>

@@ -15,6 +15,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import wepa20.Post.Post;
 import wepa20.Skill.Skill;
 
 @Data
@@ -28,7 +29,12 @@ public class Account extends AbstractPersistable<Long>{
 	private String lastName;
 	@NotEmpty
 	private String username;
-	
+	@NotEmpty
+        private String password;
+        
+        @OneToMany(mappedBy="poster")
+        private List<Post> posts = new ArrayList<>();
+        
 	@Lob
 	private byte[] profilePic;
 }
