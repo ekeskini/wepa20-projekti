@@ -1,25 +1,29 @@
-package projekti.message;
+package wepa20.Post;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotEmpty;
+
+import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import projekti.Account.Account;
-import projekti.Comment.Comment;
+import wepa20.Account.Account;
+import wepa20.Comment.Comment;
 
 @Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Post {
+public class Post extends AbstractPersistable<Long>{
+    
+	private LocalDateTime timestamp;
+	
 	@NotEmpty
 	private String content;
-	
-	private List<Account> likes = new ArrayList<>();
-	private List<Comment> comments = new ArrayList<>();
 }
