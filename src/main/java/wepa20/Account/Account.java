@@ -15,6 +15,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import wepa20.Comment.Comment;
 import wepa20.Post.Post;
 import wepa20.Skill.Skill;
 
@@ -35,6 +36,8 @@ public class Account extends AbstractPersistable<Long>{
         @OneToMany(mappedBy="poster")
         private List<Post> posts = new ArrayList<>();
         
+        @OneToMany(mappedBy="poster")
+        private List<Comment> comments = new ArrayList<>();
 	@Lob
 	private byte[] profilePic;
 }

@@ -30,4 +30,7 @@ public class Post extends AbstractPersistable<Long>{
 	
 	@NotEmpty
 	private String content;
+        
+        @OneToMany(mappedBy="parent")
+        private List<Comment> comments = new ArrayList<>();
 }

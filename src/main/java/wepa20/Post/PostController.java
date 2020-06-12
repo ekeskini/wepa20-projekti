@@ -2,6 +2,7 @@ package wepa20.Post;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import javax.transaction.Transactional;
 
 import javax.validation.Valid;
 import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
@@ -28,12 +29,12 @@ public class PostController {
 		model.addAttribute("posts", boardBuilder.getPostsByPage(0));		
 		return "home";
 	}
-	
+	@Transactional
 	@PostMapping("/home")
 	public String addPost(@RequestParam String content) {
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
                 Account acc = boardBuilder.getAccountByUsername(username);
-                Post post = new Post(acc, LocalDateTime.now(), content);
+                Post post = new Post(acc, LocalDateTime.now(), content, new ArrayList<>());
 		boardBuilder.saveNewPost(post);
 		
 		return "redirect:/home";

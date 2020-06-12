@@ -26,5 +26,9 @@ public class PostService {
 	public void saveNewPost(Post post) {
 		postrepository.save(post);
 	}
+        
+        public Post getPostById(Long id) {
+            return postrepository.getOne(id);
+        }
 	
 }
