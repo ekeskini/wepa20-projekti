@@ -2,7 +2,9 @@ package wepa20.Post;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
@@ -33,4 +35,9 @@ public class Post extends AbstractPersistable<Long>{
         
         @OneToMany(mappedBy="parent")
         private List<Comment> comments = new ArrayList<>();
+        
+        private Integer likes;
+        
+        @ManyToMany
+        private List<Account> likers = new ArrayList<>();
 }

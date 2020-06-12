@@ -20,5 +20,9 @@ import wepa20.Account.Account;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Skill extends AbstractPersistable<Long>{
+    @NotEmpty
     private String description;
+    
+    @ManyToOne
+    private Account user;
 }

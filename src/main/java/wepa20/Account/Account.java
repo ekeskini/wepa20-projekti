@@ -38,6 +38,16 @@ public class Account extends AbstractPersistable<Long>{
         
         @OneToMany(mappedBy="poster")
         private List<Comment> comments = new ArrayList<>();
+        
+        @OneToMany(mappedBy="user")
+        private List<Skill> skills = new ArrayList<>();
+        
+        @ManyToMany(mappedBy="likers")
+        private List<Post> likedposts = new ArrayList<>();
+        
+        @ManyToMany(mappedBy="likers")
+        private List<Comment> likedcomments = new ArrayList<>();
+        
 	@Lob
 	private byte[] profilePic;
 }

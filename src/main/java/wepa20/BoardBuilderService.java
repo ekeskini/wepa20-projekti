@@ -9,6 +9,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import wepa20.Account.Account;
 import wepa20.Account.AccountRepository;
@@ -58,5 +59,27 @@ public class BoardBuilderService {
     
     public void addCommentToAccount(String username, Comment comment) {
         getAccountByUsername(username).getComments().add(comment);
+    }
+    
+    public void likePostById(Long postid) {
+        Account acc = accountRepository
+                .findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        Post post = postService.getPostById(postid);
+        if (post.getLikers().contains(acc)) {
+            return;
+        }
+        post.getLikers().add(acc);
+        post.setLikes(post.getLikes() + 1);
+    }
+    
+    public void likeCommentById(Long commentid) {
+        Account acc = accountRepository
+                .findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        Comment comment = commentRepository.getOne(commentid);
+        if (comment.getLikers().contains(acc)) {
+            return;
+        }
+        comment.getLikers().add(acc);
+        comment.setLikes(comment.getLikes() + 1);
     }
 }

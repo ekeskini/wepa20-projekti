@@ -6,6 +6,7 @@
 package wepa20.Comment;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -32,10 +33,16 @@ public class CommentController {
         Account acc = boardBuilder.getAccountByUsername(username);
         Post parent = (boardBuilder.getPostById(postid));
         
-        Comment comment = new Comment(acc, LocalDateTime.now(), commentcontent, parent);
+        Comment comment = new Comment(acc, LocalDateTime.now(), commentcontent, parent, 0, new ArrayList<>());
         boardBuilder.saveNewComment(comment);
         boardBuilder.addCommentToAccount(username, comment);
         
+        return "redirect:/home";
+    }
+    
+    @PostMapping("/home/likecomment/{commentid}")
+    public String likeComment(@PathVariable Long commentid) {
+        boardBuilder.likeCommentById(commentid);
         return "redirect:/home";
     }
 }
