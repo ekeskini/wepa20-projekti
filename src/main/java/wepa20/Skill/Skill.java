@@ -25,4 +25,7 @@ public class Skill extends AbstractPersistable<Long>{
     
     @ManyToOne
     private Account user;
+    
+    @OneToMany(mappedBy="recommendedskill")
+    private List<Recommendation> recommendations;
 }

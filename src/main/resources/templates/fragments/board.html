@@ -72,4 +72,38 @@
                 </div>
             </div>
         </span>
+
+        <!--Fragment for general layout of skills-->
+        <section th:fragment="skillformat(skillparameter)" class="container" style="padding:10px">
+            <div class="row" style="background-color: darkgoldenrod;">
+                <div class="col">
+                    <p th:text="${skillparameter.description}">Skill description</p>
+                </div>
+            </div>
+            <div th:each="recommendation : ${skillparameter.recommendations}">
+                <div th:replace="fragments/board :: recommendationformat(recommendationparameter=${recommendation})"></div>
+            </div>
+            <div class="row" style="background-color: darkgoldenrod;">
+                <form th:action="@{/profile/{username}/{skillid}(username=${skillparameter.user.username}, skillid=${skillparameter.id})}" method="POST">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="recommendationdescription" placeholder="write recommendation"/>
+                    </div>
+                    <button type="submit" class="btn btn-default">Give recommendation!</button>
+                </form>
+            </div>
+        </section>
+
+        <!--Fragment for general layout of recommendations-->
+        <span th:fragment="recommendationformat(recommendationparameter)">
+            <div class="row" style="background-color: darkgoldenrod;">
+                <div class="col-2">
+                    <p><span th:text="${recommendationparameter.poster.username}"></span>:</p>
+                </div>
+                <div class="col" style="background-color:goldenrod">
+                    <p th:text="${recommendationparameter.description}">Recommendation description</p>
+                </div>
+                <div class="col-2" style="background-color: darkgoldenrod;"></div>
+            </div>            
+            <div class="row" style="background-color: darkgoldenrod;"></div>
+        </span>
     </body>
