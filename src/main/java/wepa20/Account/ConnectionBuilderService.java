@@ -49,5 +49,12 @@ class ConnectionBuilderService {
         
         requestRepository.delete(r);
     }
+    public void removeConnection(String currentusername, String connection) {
+        AccountConnectionManager yourACM = this.findByUsername(currentusername).getConnectionManager();
+        AccountConnectionManager otherACM = this.findByUsername(connection).getConnectionManager();
+        
+        yourACM.getAcceptedConnections().remove(connection);
+        otherACM.getAcceptedConnections().remove(currentusername);
+    }
     
 }

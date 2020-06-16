@@ -65,4 +65,12 @@ public class ConnectionController {
         connectionBuilder.acceptRequest(requestToBeAccepted);
         return "redirect:/connections";
     }
+    @PostMapping("/connections/{username}/remove")
+    public String removeConnection(@PathVariable String username) {
+        String currentusername = SecurityContextHolder.getContext().getAuthentication().getName();
+        
+        connectionBuilder.removeConnection(currentusername, username);
+        
+        return "redirect:/connections";
+    }
 }

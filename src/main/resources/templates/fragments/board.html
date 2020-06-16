@@ -127,6 +127,10 @@
 
         <div th:fragment="connectionformat(connectionparameter)">
             <td scope="col" th:text="${connectionparameter}">Username</td>
-            
+            <td>
+                <form th:action="@{/connections/{username}/remove(username=${connectionparameter})}" method="POST">
+                    <button type="submit" class="btn btn-default">Remove connection</button>
+                </form>
+            </td>
         </div>
     </body>
