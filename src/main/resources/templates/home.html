@@ -8,9 +8,9 @@
     <body>
         <a th:href="@{/user/{currentusername}(currentusername=${currentuser})}">Go to your profile</a>
         
-            <div th:each="post : ${posts}">
-                <div th:replace="fragments/board :: postformat(postparameter=${post})">Post</div>
-            </div>
+        <div th:each="post : ${posts}">
+            <div th:replace="fragments/board :: postformat(postparameter=${post})">Post</div>
+        </div>
        
         <form th:action="@{/home}" method="POST">
             <input type="text" name="content"/>
