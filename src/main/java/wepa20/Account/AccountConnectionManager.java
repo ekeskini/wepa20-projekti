@@ -6,7 +6,9 @@
 package wepa20.Account;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -41,4 +43,6 @@ public class AccountConnectionManager extends AbstractPersistable<Long>{
     public void addAcceptedConnection(String username) {
         this.acceptedConnections.add(username);
     }
+    
+    
 }

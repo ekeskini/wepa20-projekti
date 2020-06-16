@@ -7,6 +7,7 @@ package wepa20.Account;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,5 +57,13 @@ class ConnectionBuilderService {
         yourACM.getAcceptedConnections().remove(connection);
         otherACM.getAcceptedConnections().remove(currentusername);
     }
+    
+    public List<AccountConnectionManager> getSentRequestACM(AccountConnectionManager acm) {
+        List<AccountConnectionManager> usernames = acm.getSentRequests()
+                .stream()
+                .map(r -> r.getReceiver())
+                .collect(Collectors.toList());
+        return usernames;
+    } 
     
 }

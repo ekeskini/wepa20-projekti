@@ -43,7 +43,15 @@ public class ConnectionController {
         AccountConnectionManager receiver = connectionBuilder.findByUsername(username).getConnectionManager();
         //one should not be able to request a connection to themselves
         if(sender.equals(receiver)) {
-            return "redirec:/connections";
+            return "redirect:/connections";
+        }
+        //one should not be able to request a connection that already exists
+        if (sender.getAcceptedConnections().contains(username)) {
+            return "redirect:/connections";
+        }
+        //one should not be able to request a connection that has already been requested
+        if (connectionBuilder.getSentRequestACM(sender).contains(receiver)) {
+            return "redirect:/connections";
         }
         ConnectionRequest newrequest = new ConnectionRequest(sender, receiver);
         
