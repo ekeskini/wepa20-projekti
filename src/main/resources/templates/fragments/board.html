@@ -84,12 +84,15 @@
                 <div th:replace="fragments/board :: recommendationformat(recommendationparameter=${recommendation})"></div>
             </div>
             <div class="row" style="background-color: darkgoldenrod;">
-                <form th:action="@{/profile/{username}/{skillid}(username=${skillparameter.user.username}, skillid=${skillparameter.id})}" method="POST">
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="recommendationdescription" placeholder="write recommendation"/>
-                    </div>
-                    <button type="submit" class="btn btn-default">Give recommendation!</button>
-                </form>
+                <span th:unless="${currentuser == currentprofileusername}">
+                    <form th:action="@{/user/{username}/{skillid}(username=${skillparameter.user.username}, skillid=${skillparameter.id})}" method="POST">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="recommendationdescription" placeholder="write recommendation"/>
+                        </div>
+                        <button type="submit" class="btn btn-default">Give recommendation!</button>
+                
+                    </form>
+                </span>
             </div>
         </section>
 
@@ -106,4 +109,24 @@
             </div>            
             <div class="row" style="background-color: darkgoldenrod;"></div>
         </span>
+
+        <div th:fragment="receivedformat(requestparameter)">
+            <td scope="col" th:text="${requestparameter.sender.account.username}">User</td>
+            <td scope="col" th:text="Received">Received</td>
+            <td>
+                <form th:action="@{/user/{requestid}/acceptrequest(requestid=${requestparameter.id})}" method="POST">
+                    <button type="submit" class="btn btn-default">Accept</button>
+                </form>
+            </td>
+        </div>
+
+        <div th:fragment="sentformat(requestparameter)">
+            <td scope="col" th:text="${requestparameter.receiver.account.username}">User</td>
+            <td scope="col" th:text="Sent">Sent</td>
+        </div>
+
+        <div th:fragment="connectionformat(connectionparameter)">
+            <td scope="col" th:text="${connectionparameter}">Username</td>
+            
+        </div>
     </body>

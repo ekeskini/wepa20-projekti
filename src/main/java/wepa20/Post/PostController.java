@@ -27,7 +27,11 @@ public class PostController {
 	
 	@GetMapping("/home")
 	public String viewHome(Model model) {		
-            model.addAttribute("posts", boardBuilder.getPostsByPage(0));                 
+            String username = SecurityContextHolder
+                    .getContext().getAuthentication().getName();
+            model.addAttribute("posts", boardBuilder.getPostsByPage(0)); 
+            model.addAttribute("currentuser", username);
+            
             return "home";
 	}
 	@Transactional

@@ -27,35 +27,45 @@ public class ProfileController {
     @Autowired
     private ProfileBuilderService profBuilder;
     
-    @GetMapping("/profile/{username}")
+    @GetMapping("/user")
+    public String redirectToOwnProfile() {
+        return "redirect:/user/" + SecurityContextHolder.getContext().getAuthentication().getName();
+    }
+    @GetMapping("/user/{username}")
     public String profileView(@PathVariable String username, Model model) {
         Account currentprofileaccount = profBuilder.getAccountByUsername(username);
+        
         String currentuser = SecurityContextHolder
                 .getContext().getAuthentication().getName();
-        model.addAttribute("currentprofileusername", username);
+        
         model.addAttribute("currentuser", currentuser);
-        model.addAttribute("currentprofileskills", currentprofileaccount.getSkills());
+        
+        model.addAttribute("currentprofileaccount", currentprofileaccount);
         return "profilepage";
     }
-    @PostMapping("/profile/{username}/{skillid}")
+    @PostMapping("/user/{username}/{skillid}")
     public String postRecommendation(@PathVariable String username, 
             @PathVariable Long skillid, @RequestParam String recommendationdescription) {
         String currentusername = SecurityContextHolder
-                .getContext().getAuthentication().getName();
+            .getContext().getAuthentication().getName();
+        //Check that user is not recommending themselves
+        if (currentusername.equals(username)) {
+            return "redirect:/user/" + username;
+        }          
         Account currentuser = profBuilder.getAccountByUsername(currentusername);
         Recommendation newrecommendation = 
                 new Recommendation(recommendationdescription, profBuilder.getSkillById(skillid), currentuser);
         profBuilder.saveNewRecommendation(newrecommendation);
-        return "redirect:/profile/" + username;
+        return "redirect:/user/" + username;
     }
     
-    @PostMapping("/profile/postskill")
+    @PostMapping("/user/postskill")
     public String postSkill(@RequestParam String skilldescription) {
         String currentusername = SecurityContextHolder
                 .getContext().getAuthentication().getName();
         Account currentuser = profBuilder.getAccountByUsername(currentusername);
         Skill newskill = new Skill(skilldescription, currentuser, new ArrayList<>());
         profBuilder.saveNewSkill(newskill);
-        return "redirect:/profile/" + currentusername;
+        return "redirect:/user/" + currentusername;
     }
 }

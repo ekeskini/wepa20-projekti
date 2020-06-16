@@ -1,19 +1,30 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-    <head th:replace="fragments/layout :: head(title=${currentprofileusername})"></head>
-        <title>Home</title>
+    <head th:replace="fragments/layout :: head(title=${username})"></head>
+        <title>Username</title>
     </head>
     <body>
-        <span th:if="${currentprofileusername == currentuser}">
-            <form th:action="@{/profile/postskill}" method="POST">
+        <span th:if="${username == currentuser}">
+            <form th:action="@{/user/postskill}" method="POST">
                 <div class="form-group">
                     <input type="text" class="form-control" name="skilldescription" placeholder="Write a description of your skill here"/>
                 </div>
                 <button type="submit" class="btn btn-default">Post skill</button>
             </form>
         </span>
-        <div th:each="skill : ${currentprofileskills}">
+        <span th:unless="${username == currentuser}">
+            <form th:action="@{/{username}/requestconnection(username=${username})}" method="POST">
+                <button type="submit" class="btn btn-default">Add connection</button> 
+            </form>
+        </span>
+        <h4><span th:text="${username}">Username</span>'s skills:</h4>
+        <div th:each="skill : ${currentprofileaccount.skills}">
             <div th:replace="fragments/board :: skillformat(skillparameter=${skill})"></div>
+        </div>
+        
+        <h4>Posts by <span th:text="${username}">Username</span>:</h4>
+        <div th:each="post : ${currentprofileaccount.posts}">
+            <div th:replace="fragments/board :: postformat(postparameter=${post})"></div>
         </div>
     </body>
    

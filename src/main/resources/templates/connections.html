@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="fragments/layout :: head(title='Your connections')" lang="en">
+        <meta charset="UTF-8" />
+        <title>Connections</title>
+    </head>
+    <body>
+        
+        <table th:unless="${#lists.isEmpty(receivedrequests)}" class="table">
+            <h5>Received requests:</h5>
+            <tr>
+                <th scope="col">From</th>
+                <th scope="col">Status</th>
+            </tr>
+            <tr>
+                <div th:each="request : ${receivedrequests}">
+                    <div th:replace="fragments/board :: receivedformat(requestparameter=${request})"></div>
+                </div>
+            </tr>
+        </table>
+        
+        <table th:unless="${#lists.isEmpty(sentrequests)}" class="table">
+            <h5>Sent requests:</h5>
+            <tr>
+                <th scope="col">To:</th>
+                <th scope="col">Status</th>
+            </tr>
+            <tr>
+                <div th:each="request : ${sentrequests}">
+                    <div th:replace="fragments/board :: sentformat(requestparameter=${request})"></div>
+                </div>
+            </tr>
+        </table>
+        <h5>Active connections:</h5>
+        <table class="table">
+            <tr>
+                <th scope="col">Username</th>
+            </tr>
+            <tr>
+                <div th:each="connection : ${acceptedconnections}">
+                    <div th:replace="fragments/board :: connectionformat(connectionparameter=${connection})"></div>
+                </div>
+            </tr>
+        </table>
+    </body>

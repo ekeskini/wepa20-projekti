@@ -6,7 +6,7 @@
     </head>
     
     <body>
-        <a href="/profile">Go to your profile</a>
+        <a th:href="@{/user/{currentusername}(currentusername=${currentuser})}">Go to your profile</a>
         
             <div th:each="post : ${posts}">
                 <div th:replace="fragments/board :: postformat(postparameter=${post})">Post</div>
