@@ -4,6 +4,9 @@
         <title>Username</title>
     </head>
     <body>
+        <div class="col-2">
+            <img class="img-responsive img-thumbnail" th:src="@{/user/{pusername}/profilepic(pusername=${username})}"/>
+        </div>
         <span th:if="${username == currentuser}">
             <form th:action="@{/user/postskill}" method="POST">
                 <div class="form-group">

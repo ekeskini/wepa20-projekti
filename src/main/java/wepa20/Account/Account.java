@@ -3,9 +3,11 @@ package wepa20.Account;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import javax.persistence.Basic;
 import javax.persistence.Column;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
@@ -39,6 +41,7 @@ public class Account extends AbstractPersistable<Long>{
         private String password;
         
         @OneToOne
+        @Basic(fetch = FetchType.LAZY)
         private AccountConnectionManager connectionManager;
         
         @OneToMany(mappedBy="poster")
@@ -48,14 +51,18 @@ public class Account extends AbstractPersistable<Long>{
         private List<Comment> comments = new ArrayList<>();
         
         @OneToMany(mappedBy="user")
+        @Basic(fetch = FetchType.LAZY)
         private List<Skill> skills = new ArrayList<>();
         
         @ManyToMany(mappedBy="likers")
+        @Basic(fetch = FetchType.LAZY)
         private List<Post> likedposts = new ArrayList<>();
         
         @ManyToMany(mappedBy="likers")
+        @Basic(fetch = FetchType.LAZY)
         private List<Comment> likedcomments = new ArrayList<>();
         
 	@Lob
+        @Basic(fetch = FetchType.LAZY)
 	private byte[] profilePic;
 }

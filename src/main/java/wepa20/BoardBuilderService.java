@@ -64,22 +64,29 @@ public class BoardBuilderService {
     public void likePostById(Long postid) {
         Account acc = accountRepository
                 .findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-        Post post = postService.getPostById(postid);
-        if (post.getLikers().contains(acc)) {
+        Post p = postService.getPostById(postid);
+        List<Account> postLikers = p.getLikers();
+        
+        if (postLikers.contains(acc)) {
+            postLikers.remove(acc);
+            p.setLikes(p.getLikes() - 1);
             return;
         }
-        post.getLikers().add(acc);
-        post.setLikes(post.getLikes() + 1);
+        postLikers.add(acc);
+        p.setLikes(p.getLikes() + 1);
     }
     
     public void likeCommentById(Long commentid) {
         Account acc = accountRepository
                 .findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-        Comment comment = commentRepository.getOne(commentid);
-        if (comment.getLikers().contains(acc)) {
+        Comment c = commentRepository.getOne(commentid);
+        List<Account> commentLikers = c.getLikers();
+        if (commentLikers.contains(acc)) {
+            commentLikers.remove(acc);
+            c.setLikes(c.getLikes() - 1);
             return;
         }
-        comment.getLikers().add(acc);
-        comment.setLikes(comment.getLikes() + 1);
+        commentLikers.add(acc);
+        c.setLikes(c.getLikes() + 1);
     }
 }

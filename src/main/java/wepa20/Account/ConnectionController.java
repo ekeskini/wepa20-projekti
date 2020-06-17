@@ -58,7 +58,7 @@ public class ConnectionController {
         connectionBuilder.saveNewRequest(newrequest);
         return "redirect:/connections";
     }
-    @PostMapping("/user/{requestid}/acceptrequest")
+    @PostMapping("/user/{requestid}/accept")
     public String acceptConnection(@PathVariable Long requestid) {
         AccountConnectionManager receiver = connectionBuilder.findByUsername(
             SecurityContextHolder.getContext().getAuthentication().getName()).getConnectionManager();
@@ -79,6 +79,22 @@ public class ConnectionController {
         
         connectionBuilder.removeConnection(currentusername, username);
         
+        return "redirect:/connections";
+    }
+    @PostMapping("/connections/{requestid}/decline")
+    public String declineConnection(@PathVariable Long requestid) {
+        AccountConnectionManager receiver = connectionBuilder.findByUsername(
+            SecurityContextHolder.getContext().getAuthentication().getName()).getConnectionManager();
+        
+        List<ConnectionRequest> yourReceivedRequests = receiver.getReceivedRequests();
+        ConnectionRequest requestToBeDeclined = connectionBuilder.getRequestById(requestid);
+        
+        //check if the request to be accepted belongs to the current user
+        if (!yourReceivedRequests.contains(requestToBeDeclined)) {
+            return "redirect:/connections";
+        }
+        
+        connectionBuilder.declineRequest(requestToBeDeclined);
         return "redirect:/connections";
     }
 }

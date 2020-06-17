@@ -112,8 +112,13 @@
             <td scope="col" th:text="${requestparameter.sender.account.username}">User</td>
             <td scope="col" th:text="Received">Received</td>
             <td>
-                <form th:action="@{/user/{requestid}/acceptrequest(requestid=${requestparameter.id})}" method="POST">
+                <form th:action="@{/connections/{requestid}/accept(requestid=${requestparameter.id})}" method="POST">
                     <button type="submit" class="btn btn-default">Accept</button>
+                </form>
+            </td>
+            <td>
+                <form th:action="@{/connections/{requestid}/decline(requestid=${requestparameter.id})}" method="POST">
+                    <button type="submit" class="btn btn-default">Decline</button>
                 </form>
             </td>
         </div>
