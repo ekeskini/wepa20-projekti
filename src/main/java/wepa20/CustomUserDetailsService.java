@@ -12,8 +12,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import wepa20.Account.Account;
-import wepa20.Account.AccountRepository;
+import wepa20.entities.Account;
+import wepa20.repositories.AccountRepository;
 
 /**
  *

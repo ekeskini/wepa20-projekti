@@ -1,15 +1,13 @@
-package wepa20.Post;
+package wepa20.entities;
+
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
@@ -17,27 +15,27 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import wepa20.Account.Account;
-import wepa20.Comment.Comment;
 
 @Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Post extends AbstractPersistable<Long>{
-        @ManyToOne
+
+public class Comment extends AbstractPersistable<Long>{	
+	@ManyToOne
         private Account poster;
         
-	private LocalDateTime timestamp;
+        private LocalDateTime timestamp;
 	
-	@NotEmpty
-	private String content;
+        @NotEmpty
+        private String content;
         
-        @OneToMany(mappedBy="parent")
-        private List<Comment> comments = new ArrayList<>();
+        @ManyToOne
+        private Post parent;
         
         private Integer likes;
         
         @ManyToMany
         private List<Account> likers = new ArrayList<>();
+        
 }

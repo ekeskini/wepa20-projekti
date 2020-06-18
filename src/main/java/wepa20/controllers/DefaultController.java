@@ -1,14 +1,13 @@
-package wepa20;
+package wepa20.controllers;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class DefaultController {
 
     @GetMapping("*")
-    public String helloWorld() {
+    public String redirectGeneral() {
        
         return "redirect:/home";
     }

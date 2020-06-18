@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package wepa20;
+package wepa20.controllers;
 
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +15,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import wepa20.Account.Account;
-import wepa20.Skill.Recommendation;
-import wepa20.Skill.Skill;
+import wepa20.entities.Account;
+import wepa20.services.ProfileBuilderService;
+import wepa20.entities.Recommendation;
+import wepa20.entities.Skill;
 
 /**
  *

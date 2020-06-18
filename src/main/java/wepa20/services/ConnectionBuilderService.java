@@ -3,14 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package wepa20.Account;
+package wepa20.services;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import wepa20.entities.Account;
+import wepa20.entities.AccountConnectionManager;
+import wepa20.repositories.AccountConnectionManagerRepository;
+import wepa20.repositories.AccountRepository;
+import wepa20.entities.ConnectionRequest;
+import wepa20.repositories.ConnectionRequestRepository;
 
 /**
  *
@@ -18,7 +23,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @Transactional
-class ConnectionBuilderService {
+public class ConnectionBuilderService {
     @Autowired
     private AccountRepository accountRepository;
     @Autowired
@@ -68,5 +73,13 @@ class ConnectionBuilderService {
                 .collect(Collectors.toList());
         return usernames;
     } 
+    
+    public List<AccountConnectionManager> gerReceivedRequestACM(AccountConnectionManager acm) {
+        List<AccountConnectionManager> usernames = acm.getReceivedRequests()
+                .stream()
+                .map(r -> r.getSender())
+                .collect(Collectors.toList());
+        return usernames;
+    }
     
 }

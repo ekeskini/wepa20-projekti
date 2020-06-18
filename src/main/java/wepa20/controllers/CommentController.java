@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package wepa20.Comment;
+package wepa20.controllers;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -13,9 +13,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import wepa20.Account.Account;
-import wepa20.BoardBuilderService;
-import wepa20.Post.Post;
+import wepa20.entities.Account;
+import wepa20.entities.Comment;
+import wepa20.services.BoardBuilderService;
+import wepa20.entities.Post;
 
 /**
  *

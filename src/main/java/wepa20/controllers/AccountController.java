@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package wepa20.Account;
+package wepa20.controllers;
 
 import java.util.ArrayList;
 import javax.transaction.Transactional;
@@ -13,6 +13,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import wepa20.entities.Account;
+import wepa20.entities.AccountConnectionManager;
+import wepa20.repositories.AccountConnectionManagerRepository;
+import wepa20.repositories.AccountRepository;
 
 /**
  *

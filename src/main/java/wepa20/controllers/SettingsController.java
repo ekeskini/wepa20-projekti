@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package wepa20.Account;
+package wepa20.controllers;
 
 import java.io.IOException;
 import javax.transaction.Transactional;
@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import wepa20.entities.Account;
+import wepa20.repositories.AccountRepository;
 
 /**
  *
@@ -32,7 +34,7 @@ public class SettingsController {
     public String add(@RequestParam("file") MultipartFile file) throws IOException {
         
         if (!(file.getContentType().matches("image/...") || file.getContentType().matches("image/...."))
-                || file.getBytes().length > 10000) {
+                || file.getBytes().length > 100000) {
             
             return "redirect:/settings";
         }

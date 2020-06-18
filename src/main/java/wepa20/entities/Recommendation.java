@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package wepa20.Account;
+package wepa20.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -20,9 +20,14 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class ConnectionRequest extends AbstractPersistable<Long>{
+public class Recommendation extends AbstractPersistable<Long>{
+    private String description;
+    
     @ManyToOne
-    private AccountConnectionManager sender;
+    private Skill recommendedskill;
+    
     @ManyToOne
-    private AccountConnectionManager receiver;
+    private Account poster;
+    
+    
 }

@@ -3,14 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package wepa20.Account;
+package wepa20.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import wepa20.entities.AccountConnectionManager;
 
 /**
  *
  * @author Elias Keski-Nisula
  */
-public interface ConnectionRequestRepository extends JpaRepository<ConnectionRequest, Long>{
+public interface AccountConnectionManagerRepository extends JpaRepository<AccountConnectionManager, Long>{
     
 }

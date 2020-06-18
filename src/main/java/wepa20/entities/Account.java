@@ -1,17 +1,14 @@
-package wepa20.Account;
+package wepa20.entities;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotEmpty;
@@ -21,9 +18,6 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import wepa20.Comment.Comment;
-import wepa20.Post.Post;
-import wepa20.Skill.Skill;
 
 @Data
 @Entity

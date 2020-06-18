@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package wepa20;
+package wepa20.services;
 
 import java.util.List;
 import javax.transaction.Transactional;
@@ -11,13 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import wepa20.Account.Account;
-import wepa20.Account.AccountRepository;
-import wepa20.Comment.Comment;
-import wepa20.Comment.CommentRepository;
-import wepa20.Post.Post;
-import wepa20.Post.PostRepository;
-import wepa20.Post.PostService;
+import wepa20.entities.Account;
+import wepa20.repositories.AccountRepository;
+import wepa20.entities.Comment;
+import wepa20.repositories.CommentRepository;
+import wepa20.entities.Post;
 
 /**
  *

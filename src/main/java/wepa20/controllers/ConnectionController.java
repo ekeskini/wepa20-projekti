@@ -3,10 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package wepa20.Account;
+package wepa20.controllers;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import wepa20.services.ConnectionBuilderService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,6 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import wepa20.entities.AccountConnectionManager;
+import wepa20.entities.ConnectionRequest;
 
 /**
  *
@@ -41,6 +42,7 @@ public class ConnectionController {
         AccountConnectionManager sender = connectionBuilder.findByUsername(
             SecurityContextHolder.getContext().getAuthentication().getName()).getConnectionManager();
         AccountConnectionManager receiver = connectionBuilder.findByUsername(username).getConnectionManager();
+        
         //one should not be able to request a connection to themselves
         if(sender.equals(receiver)) {
             return "redirect:/connections";
@@ -50,7 +52,8 @@ public class ConnectionController {
             return "redirect:/connections";
         }
         //one should not be able to request a connection that has already been requested
-        if (connectionBuilder.getSentRequestACM(sender).contains(receiver)) {
+        if (connectionBuilder.getSentRequestACM(sender).contains(receiver)
+                || connectionBuilder.gerReceivedRequestACM(sender).contains(receiver)) {
             return "redirect:/connections";
         }
         ConnectionRequest newrequest = new ConnectionRequest(sender, receiver);
@@ -58,7 +61,7 @@ public class ConnectionController {
         connectionBuilder.saveNewRequest(newrequest);
         return "redirect:/connections";
     }
-    @PostMapping("/user/{requestid}/accept")
+    @PostMapping("/connections/{requestid}/accept")
     public String acceptConnection(@PathVariable Long requestid) {
         AccountConnectionManager receiver = connectionBuilder.findByUsername(
             SecurityContextHolder.getContext().getAuthentication().getName()).getConnectionManager();

@@ -1,6 +1,4 @@
-package wepa20.Post;
-
-import java.util.List;
+package wepa20.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -9,9 +7,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import wepa20.Account.Account;
-import wepa20.Account.AccountRepository;
-import wepa20.Comment.CommentRepository;
+import wepa20.entities.Post;
+import wepa20.repositories.PostRepository;
 
 @Service
 public class PostService {

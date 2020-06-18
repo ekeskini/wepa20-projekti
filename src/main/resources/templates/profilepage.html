@@ -5,7 +5,7 @@
     </head>
     <body>
         <div class="col-2">
-            <img class="img-responsive img-thumbnail" th:src="@{/user/{pusername}/profilepic(pusername=${username})}"/>
+            <img class="img-responsive img-thumbnail" th:src="@{/user/{pusername}/profilepic(pusername=${username})}" style="object-fit: cover; overflow: hidden; height: 10vw; width: 10vw;"/>
         </div>
         <span th:if="${username == currentuser}">
             <form th:action="@{/user/postskill}" method="POST">

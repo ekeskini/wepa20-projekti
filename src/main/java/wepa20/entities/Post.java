@@ -1,5 +1,4 @@
-package wepa20.Comment;
-
+package wepa20.entities;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -16,29 +15,25 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import wepa20.Account.Account;
-import wepa20.Post.Post;
 
 @Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-
-public class Comment extends AbstractPersistable<Long>{	
-	@ManyToOne
+public class Post extends AbstractPersistable<Long>{
+        @ManyToOne
         private Account poster;
         
-        private LocalDateTime timestamp;
+	private LocalDateTime timestamp;
 	
-        @NotEmpty
-        private String content;
+	@NotEmpty
+	private String content;
         
-        @ManyToOne
-        private Post parent;
+        @OneToMany(mappedBy="parent")
+        private List<Comment> comments = new ArrayList<>();
         
         private Integer likes;
         
         @ManyToMany
         private List<Account> likers = new ArrayList<>();
-        
 }
