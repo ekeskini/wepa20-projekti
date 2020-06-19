@@ -5,6 +5,10 @@
  */
 package wepa20.controllers;
 
+import com.google.common.io.Files;
+import java.io.IOException;
+import static java.lang.System.out;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -73,8 +77,13 @@ public class ProfileController {
     
     @GetMapping(path = "/user/{username}/profilepic", produces="image/*")
     @ResponseBody
-    public byte[] getProfilePic(@PathVariable String username) {
-        System.out.println("were here");
-        return profBuilder.getAccountByUsername(username).getProfilePic();
+    public byte[] getProfilePic(@PathVariable String username) throws IOException {
+        byte[] profilepic = profBuilder.getAccountByUsername(username).getProfilePic();
+        System.out.println(System.getProperty("user.dir"));
+        if (profilepic.length == 0) {
+            System.out.println("jere");
+            return Files.toByteArray(Paths.get("./src/main/resources/public/img/placeholder.jpg").toFile());
+        }
+        return profilepic;
     }
 }

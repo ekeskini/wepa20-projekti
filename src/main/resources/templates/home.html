@@ -6,15 +6,34 @@
     </head>
     
     <body>
-        <a th:href="@{/user/{currentusername}(currentusername=${currentuser})}">Go to your profile</a>
+        <div th:replace="fragments/general :: generalnavbarhome"></div>
         
-        <div th:each="post : ${posts}">
-            <div th:replace="fragments/board :: postformat(postparameter=${post})">Post</div>
+        <div class="container text-center" style="padding: 10px;">
+            <h1 class="display-4">Not <em>another</em> social media message board...</h1>            
         </div>
-       
-        <form th:action="@{/home}" method="POST">
-            <input type="text" name="content"/>
-            <input type="submit" value="Post!"/>
-        </form>
+        
+        <div class="container" style="padding:10px">
+            <div class="text-center">
+                <button class="btn btn-primary mb-4" type="button" data-toggle="collapse" data-target="#writePost" aria-expanded="false" aria-controls="collapseExample">
+                    Write post
+                </button>
+            </div>
+            <div class="collapse" id="writePost">
+                <form th:action="@{/home}" method="POST">
+                    <div class="form-group">
+                        <textarea class="form-control" name="content" placeholder="Write your post here" rows="3"></textarea>                
+                    </div>
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-info btn-lg">Submit post</button>
+                    </div>
+                </form>
+            </div>
+
+            <div th:each="post : ${posts}">
+                <div th:replace="fragments/board :: postformat(postparameter=${post})">Post</div>
+            </div>
+        </div>
+        
+        <div th:replace="fragments/general :: links"></div>
     </body>
 </html>

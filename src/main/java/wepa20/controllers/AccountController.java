@@ -45,7 +45,7 @@ public class AccountController {
         acc.setLastName(lastName);
         acc.setUsername(username);       
         acc.setPassword(passwordEncoder.encode(password));
-        
+        acc.setProfilePic(new byte[0]);
         AccountConnectionManager acm = 
                 new AccountConnectionManager(acc, new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
         acmRepository.save(acm);

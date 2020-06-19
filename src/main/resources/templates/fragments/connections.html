@@ -8,4 +8,9 @@
         <div th:fragment="link(username)">
             <a th:href="@{/user/{linkedusername}(linkedusername=${username})}" th:text="${username}">username</a>
         </div>
+
+        <div th:fragment="whitelink(username)">
+            <a class="text-white" th:href="@{/user/{linkedusername}(linkedusername=${username})}" th:text="${username}">username</a>
+        </div>
     </body>
+

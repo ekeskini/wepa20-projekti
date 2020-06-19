@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:fragment="head(title)" lang="en">
+        <meta charset="UTF-8" />
+        <title th:text="${title}">Title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    </head>
+    <body>
+        
+        <div th:fragment="nasmjumbotron">
+            <div class="jumbotron jumbotron-fluid bg-info text-white" style="margin-bottom:0px">
+                <div class="container">
+                    <h1 class="display-4 text-center"><strong>Not <em>another</em> social media...</strong></h1>
+                </div>
+            </div>
+        </div>
+
+        <div th:fragment="generalnavbar">
+            <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgb(0, 77, 90);">
+                <span class="navbar-brand" th:href="@{/home}">Not <em>another</em> social media...</span>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            
+                <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link active" th:href="@{/home}">Home</a>
+                    <a class="nav-item nav-link" th:href="@{/user}">Profile</a>
+                    <a class="nav-item nav-link" th:href="@{/settings}">Settings</a>
+                </div>
+                </div>
+            </nav>
+        </div>
+
+
+
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    </body>

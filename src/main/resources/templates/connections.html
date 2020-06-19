@@ -5,7 +5,7 @@
         <title>Connections</title>
     </head>
     <body>
-        
+        <div th:replace="fragments/general :: generalnavbarconnections"></div>
         <table th:unless="${#lists.isEmpty(receivedrequests)}" class="table">
             <h5>Received requests:</h5>
             <tr>
@@ -42,4 +42,6 @@
                 </div>
             </tr>
         </table>
+
+        <div th:replace="fragments/general :: links"></div>
     </body>

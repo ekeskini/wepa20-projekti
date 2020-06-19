@@ -5,71 +5,93 @@
         <title>Home</title>
     </head>
     <body>
-        <!--Fragment for general layout of posts-->
-        <section th:fragment="postformat(postparameter)" class="container" style="padding: 10px">
-            <div class="row" style="background-color:aquamarine">
-                <div class="col-2">
-                    <p th:text="${#temporals.format(postparameter.timestamp, 'yyyy-MM-dd HH:mm')}">Timestamp</p>
+        <div class="card mb-2" th:fragment="postformat(postparameter)">
+            <div class="card-header bg-dark text-white">              
+                <div class="row">
+                    <div class="col-2">
+                        <div th:text="${#temporals.format(postparameter.timestamp, 'yyyy-MM-dd HH:mm')}">timestamp</div>
+                    </div>
+                    <div class="col">
+                        <div th:replace="fragments/connections :: whitelink(username=${postparameter.poster.username})">Poster</div> 
+                    </div>
                 </div>
+            </div>
+            <div class="card-body">
+                <div class="row mb-2">
+                    <div class="col-2">
+                        <img class="img-responsive img-thumbnail mb-2" th:src="@{/user/{pusername}/profilepic(pusername=${postparameter.poster.username})}" style="object-fit: cover; overflow: hidden; height: 10vw; width: 10vw;"/>
+                    </div>
+                    <div class="col">                       
+                        <p th:text="${postparameter.content}">Content</p>
+                    </div>
+                </div> 
+                <div class="row mb-0">
+                    <div class="col">                       
+                        <form th:action="@{/home/likepost/{postid}(postid=${postparameter.id})}" method="POST">
+                            <div class="form-group mb-0">
+                            <button type="submit" class="btn btn-success"><span th:text="${postparameter.likes}">Likes</span> Like</button>
+                            </div>                       
+                        </form>                        
+                    </div> 
                 <div class="col">
-                    <div th:replace="fragments/connections :: link(username=${postparameter.poster.username})">Poster</div>
-                </div>  
-            </div>
-            <div class="row" style="background-color:aquamarine">
-                <div class="col-2">
-                    <form th:action="@{/home/likepost/{postid}(postid=${postparameter.id})}" method="POST">
-                        <div class="form-group">
-                            <button type="submit" class="btn">Like</button>
+                        <div class="text-right">
+                            <button class="btn btn-dark text-center" type="button" data-toggle="collapse" data-target="#writeComment" aria-expanded="false" aria-controls="collapseExample">
+                                Write comment
+                            </button>
                         </div>
-                        <p th:text="${postparameter.likes}">likes</p>
-                    </form>
-                </div>
-                <div class="col-6">
-                    <p th:text="${postparameter.content}">Content</p>
-                </div>
-                <div class="col">
-                    
-                    <form th:action="@{/home/{postid}/comment(postid=${postparameter.id})}" method="POST">
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="commentcontent" placeholder="Write comment">
-                        </div>
-                        <button type="submit" class="btn btn-default">Submit comment</button>
-                    </form>
-                    
-                </div>
-                
+                    </div>
+                </div>           
             </div>
-            <div th:each="comment : ${postparameter.comments}">
-                <div th:replace="fragments/board :: commentformat(commentparameter=${comment})">Comment</div>
-            </div>
-        </section>
+            <div class="card-footer" style="background-color: lightgray;">   
+                <div class="text-center">
+                    <div class="collapse" id="writeComment">
+                    
+                        <form th:action="@{/home/{postid}/comment(postid=${postparameter.id})}" method="POST">
+                            <div class="form-group mb-2">
+                                <textarea name="commentcontent" class="form-control mb-2" placeholder="Write your comment here"></textarea>
+                                <button type="submit" class="btn btn-info">Submit comment</button>
+                            </div>
+                        
+                        </form> 
+                    </div>
+                </div>
 
-        <!--Fragment for general layout of comments-->
-        <span th:fragment="commentformat(commentparameter)">
-            <div class="row" style="background-color: aquamarine;">
-                <div class="col-3"></div>
-                <div class="col-2" style="background-color: darkseagreen;">
-                    <p th:text="${#temporals.format(commentparameter.timestamp, 'yyyy-MM-dd HH:mm')}">Timestamp</p>
-                </div>
-                <div class="col" style="background-color: darkseagreen;">
-                    <div th:replace="fragments/connections :: link(username=${commentparameter.poster.username})">Poster</div>
+                <div th:each="comment : ${postparameter.comments}">
+                    <div th:replace="fragments/board :: commentformat(commentparameter=${comment})">Comment</div>
                 </div>
             </div>
-            <div class="row" style="background-color: aquamarine;">
-                <div class="col-3"></div>
-                <div class="col-2" style="background-color: darkseagreen;">
+        </div>
+        </div>
+
+        <!--Comment fragment-->
+        <div class="card border-light mb-1 w-75 mx-auto" th:fragment="commentformat(commentparameter)">
+            <div class="card-header bg-dark text-white">              
+                <div class="row">
+                    <div class="col-3">
+                        <div th:text="${#temporals.format(commentparameter.timestamp, 'yyyy-MM-dd HH:mm')}">timestamp</div>
+                    </div>
+                    <div class="col">
+                        <div th:replace="fragments/connections :: whitelink(username=${commentparameter.poster.username})">Poster</div> 
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                <div class="col-2">
+                    <img class="img-responsive img-thumbnail mb-2" th:src="@{/user/{pusername}/profilepic(pusername=${commentparameter.poster.username})}" style="object-fit: cover; overflow: hidden; height: 5vw; width: 5vw;"/>
                     <form th:action="@{/home/likecomment/{commentid}(commentid=${commentparameter.id})}" method="POST">
-                        <div class="form-group">
-                            <button type="submit" class="btn">Like</button>
-                        </div>
-                        <p th:text="${commentparameter.likes}">likes</p>
-                    </form>
+                        <div class="form-group mb-0">
+                        <button type="submit" class="btn btn-success"><span th:text="${commentparameter.likes}">Likes</span> Like</button>
+                        </div>                       
+                    </form>                        
                 </div>
-                <div class="col" style="background-color: darkseagreen">
-                    <p th:text="${commentparameter.content}">Content</p>
+                <div class="col">
+                     <p th:text="${commentparameter.content}">Content</p>
                 </div>
             </div>
-        </span>
+            </div>
+        </div>
+
 
         <!--Fragment for general layout of skills-->
         <section th:fragment="skillformat(skillparameter)" class="container" style="padding:10px">

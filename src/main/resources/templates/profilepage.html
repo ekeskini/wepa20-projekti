@@ -4,8 +4,19 @@
         <title>Username</title>
     </head>
     <body>
+        <div th:replace="fragments/general :: generalnavbarprofile"></div>
+        
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    
+                    <img class="img-responsive img-thumbnail" th:src="@{/user/{pusername}/profilepic(pusername=${username})}" style="object-fit: cover; overflow: hidden; height: 10vw; width: 10vw;"/>
+                </div>
+            </div>
+        </div>
+        
         <div class="col-2">
-            <img class="img-responsive img-thumbnail" th:src="@{/user/{pusername}/profilepic(pusername=${username})}" style="object-fit: cover; overflow: hidden; height: 10vw; width: 10vw;"/>
+            
         </div>
         <span th:if="${username == currentuser}">
             <form th:action="@{/user/postskill}" method="POST">
@@ -29,5 +40,8 @@
         <div th:each="post : ${currentprofileaccount.posts}">
             <div th:replace="fragments/board :: postformat(postparameter=${post})"></div>
         </div>
+
+
+        <div th:replace="fragments/general :: links"></div>
     </body>
    
