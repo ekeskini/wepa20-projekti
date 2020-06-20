@@ -29,7 +29,7 @@ public class SearchController {
     @GetMapping("/search")
     public String search(Model model, @RequestParam String term) {      
         
-        if (term.isBlank()) {
+        if (term.isEmpty()) {
             model.addAttribute("accounts", 
                     accountRepository.findAll(Sort.by(Sort.Direction.ASC, "username")));
             return "searchresults";
