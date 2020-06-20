@@ -51,8 +51,10 @@ public class ProfileController {
         model.addAttribute("top3skills", profBuilder.getTopSkills(currentprofileaccount));
         
         List<Skill> otherSkills = profBuilder.getSkillsOrdered(currentprofileaccount);
-        model.addAttribute("otherskills", otherSkills.subList(3, otherSkills.size() - 1));
         
+        if (otherSkills.size() > 3) {
+            model.addAttribute("otherskills", otherSkills.subList(3, otherSkills.size() - 1));
+        }
         return "profilepage";
     }
     @PostMapping("/user/{username}/{skillid}")

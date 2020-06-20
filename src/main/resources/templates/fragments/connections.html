@@ -12,5 +12,9 @@
         <div th:fragment="whitelink(username)">
             <a class="text-white" th:href="@{/user/{linkedusername}(linkedusername=${username})}" th:text="${username}">username</a>
         </div>
+
+        <div th:fragment="searchresultlink(username)">
+            <td class="align-middle"><a th:href="@{/user/{linkedusername}(linkedusername=${username})}" th:text="${username}"></a></td>
+        </div>
     </body>
 

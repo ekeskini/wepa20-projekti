@@ -28,6 +28,10 @@
                         <a class="nav-item nav-link" th:href="@{/connections}">Connections</a>
                         <a class="nav-item nav-link" th:href="@{/settings}">Settings</a>
                     </div>
+                    <form th:action="@{/search}" class="form-inline ml-3">
+                        <input class="form-control mr-sm-2" type="search" name="term" placeholder="Search users">
+                        <button class="btn btn-outline-warning my-2 text-white my-sm-0" type="submit">Search</button>
+                    </form>
                     <div class="navbar-nav ml-auto">
                         <a th:href="@{/logout}" class="btn btn-dark text-white">Logout</a>
                     </div>
@@ -50,6 +54,10 @@
                         <a class="nav-item nav-link" th:href="@{/connections}">Connections</a>
                         <a class="nav-item nav-link" th:href="@{/settings}">Settings</a>                                         
                     </div>
+                    <form th:action="@{/search}" class="form-inline ml-3">
+                        <input class="form-control mr-sm-2" type="search" name="term" placeholder="Search users">
+                        <button class="btn btn-outline-warning my-2 text-white my-sm-0" type="submit">Search</button>
+                    </form>
                     <div class="navbar-nav ml-auto">
                         <a th:href="@{/logout}" class="btn btn-dark text-white">Logout</a>
                     </div>
@@ -72,6 +80,10 @@
                         <a class="nav-item nav-link" th:href="@{/connections}">Connections</a>
                         <a class="nav-item nav-link active" th:href="@{/settings}">Settings</a>                      
                     </div>
+                    <form th:action="@{/search}" class="form-inline ml-3">
+                        <input class="form-control mr-sm-2" type="search" name="term" placeholder="Search users">
+                        <button class="btn btn-outline-warning my-2 text-white my-sm-0" type="submit">Search</button>
+                    </form>
                     <div class="navbar-nav ml-auto">
                         <a th:href="@{/logout}" class="btn btn-dark text-white">Logout</a>
                     </div>
@@ -94,9 +106,14 @@
                         <a class="nav-item nav-link active" th:href="@{/connections}">Connections</a>
                         <a class="nav-item nav-link" th:href="@{/settings}">Settings</a>                     
                     </div>
-                    <div class="navbar-nav ml-auto">
+                    <form th:action="@{/search}" class="form-inline ml-3">
+                        <input class="form-control mr-sm-2" type="search" name="term" placeholder="Search users">
+                        <button class="btn btn-outline-warning my-2 text-white my-sm-0" type="submit">Search</button>
+                    </form>
+                    <div class="navbar-nav ml-auto mr-2">
                         <a th:href="@{/logout}" class="btn btn-dark text-white">Logout</a>
                     </div>
+                    
                 </div>
                 
             </nav>
