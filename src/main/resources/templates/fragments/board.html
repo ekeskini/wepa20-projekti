@@ -6,7 +6,7 @@
     </head>
     <body>
         <div class="card mb-2" th:fragment="postformat(postparameter)">
-            <div class="card-header bg-dark text-white">              
+            <div class="card-header text-white" style="background-color: rgb(0, 130, 130);">              
                 <div class="row">
                     <div class="col-2">
                         <div th:text="${#temporals.format(postparameter.timestamp, 'yyyy-MM-dd HH:mm')}">timestamp</div>
@@ -42,7 +42,7 @@
                     </div>
                 </div>           
             </div>
-            <div class="card-footer" style="background-color: lightgray;">   
+            <div class="card-footer" style="background-color: rgb(166, 214, 214)">   
                 <div class="text-center">
                     <div class="collapse" id="writeComment">
                     
@@ -65,7 +65,7 @@
 
         <!--Comment fragment-->
         <div class="card border-light mb-1 w-75 mx-auto" th:fragment="commentformat(commentparameter)">
-            <div class="card-header bg-dark text-white">              
+            <div class="card-header text-white" style="background-color: rgb(0, 130, 130)">              
                 <div class="row">
                     <div class="col-3">
                         <div th:text="${#temporals.format(commentparameter.timestamp, 'yyyy-MM-dd HH:mm')}">timestamp</div>
@@ -94,42 +94,43 @@
 
 
         <!--Fragment for general layout of skills-->
-        <section th:fragment="skillformat(skillparameter)" class="container" style="padding:10px">
-            <div class="row" style="background-color: darkgoldenrod;">
-                <div class="col">
-                    <p th:text="${skillparameter.description}">Skill description</p>
-                </div>
-            </div>
-            <div th:each="recommendation : ${skillparameter.recommendations}">
-                <div th:replace="fragments/board :: recommendationformat(recommendationparameter=${recommendation})"></div>
-            </div>
-            <div class="row" style="background-color: darkgoldenrod;">
-                <span th:unless="${currentuser == currentprofileusername}">
-                    <form th:action="@{/user/{username}/{skillid}(username=${skillparameter.user.username}, skillid=${skillparameter.id})}" method="POST">
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="recommendationdescription" placeholder="write recommendation"/>
+        <div class="card mb-2" th:fragment="skillformat(skillparameter)">        
+                    <div class="card body" style="background-color: rgba(0, 182, 182, 0.5);">
+                        <h5 class="card-title" th:text="${skillparameter.description}">Skill description</h5>                                       
+                        <span th:unless="${currentuser == currentprofileaccount.username}">
+                            <p class="card-text text-muted">Do you want to recommend this skill?</p>
+                            <form th:action="@{/user/{username}/{skillid}(username=${skillparameter.user.username}, skillid=${skillparameter.id})}" method="POST">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="recommendationdescription" placeholder="write recommendation"/>
+                                </div>
+                                <button type="submit" class="btn btn-dark">Post recommendation</button>               
+                            </form>
+                        </span>
+                    </div>
+                                    
+                    <ul class="list-group list-group-flush">
+                        <div th:each="recommendation : ${skillparameter.recommendations}">
+                            <div th:replace="fragments/board :: recommendationformat(recommendationparameter=${recommendation})"></div>
                         </div>
-                        <button type="submit" class="btn btn-default">Give recommendation!</button>
-                
-                    </form>
-                </span>
-            </div>
-        </section>
+                    </ul>      
+        </div>    
+    
 
         <!--Fragment for general layout of recommendations-->
-        <span th:fragment="recommendationformat(recommendationparameter)">
-            <div class="row" style="background-color: darkgoldenrod;">
-                <div class="col-2" style="background-color: goldenrod;">
+        <span class="list-group-item text-center" th:fragment="recommendationformat(recommendationparameter)">
+            <div class="row bg-light">
+                <div class="col text-center mb-2">
                     <div th:replace="fragments/connections :: link(username=${recommendationparameter.poster.username})">Poster</div>
                 </div>
-                <div class="col" style="background-color:goldenrod">
+            </div>    
+            <div class="row">
+                <div class="col">
                     <p th:text="${recommendationparameter.description}">Recommendation description</p>
                 </div>
-                <div class="col-2" style="background-color: darkgoldenrod;"></div>
-            </div>            
-            <div class="row" style="background-color: darkgoldenrod;"></div>
+            </div>
         </span>
 
+        <!--Received request parameter-->
         <div th:fragment="receivedformat(requestparameter)">
             <td scope="col" th:text="${requestparameter.sender.account.username}">User</td>
             <td scope="col" th:text="Received">Received</td>

@@ -25,4 +25,6 @@ public class Skill extends AbstractPersistable<Long>{
     
     @OneToMany(mappedBy="recommendedskill")
     private List<Recommendation> recommendations;
+    
+    private Integer recommendationAmount;
 }

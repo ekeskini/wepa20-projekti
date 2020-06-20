@@ -6,25 +6,61 @@
     <body>
         <div th:replace="fragments/general :: generalnavbarprofile"></div>
         
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    
+        <div class="container-flex text-center text-white mb-3" style="background-color:rgb(0, 160, 160);padding: 10px;">
+            <div class="row mb-2">
+                <div class="col">                  
                     <img class="img-responsive img-thumbnail" th:src="@{/user/{pusername}/profilepic(pusername=${username})}" style="object-fit: cover; overflow: hidden; height: 10vw; width: 10vw;"/>
+                <h1 class="display-4"><strong><span th:text="${currentprofileaccount.firstName}">firstname</span> <span th:text="${currentprofileaccount.lastName}"></span></strong></h1>
+                    <h3>@<span th:text="${username}"></span></h3>
+                </div>
+                
+            </div>
+        </div>
+        <div th:if="${currentuser == currentprofileaccount.username}">
+        <div class="container">
+            <div class="row mb-2">
+                <div class="col text-center">
+                   <h5>Post about a skill, qualification or competence:</h5> 
                 </div>
             </div>
+                <div class="row text-center">
+                    <div class="col">
+                        <form th:action="@{/user/postskill}" method="POST">
+                            <div class="form-group">
+                                <textarea type="text" class="form-control" name="skilldescription" placeholder="Write a description of your skill here"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-dark">Post skill</button>
+                            </div>    
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container mb-3">
+            <h3 class="text-center mb-3">Top three @<span th:text="${currentprofileaccount.username}">username</span>'s most recommended skills:</h3>
+            <div class="row mb-3">
+                
+                <div class="col text-center" th:each="skill : ${top3skills}">
+                    <div th:replace="fragments/board :: skillformat(skillparameter=${skill})"></div>
+                </div>
+            </div>
+            <h4 class="text-center mb-3">Other noteworthy skills:</h4>
+            <div class="row">
+                <div class="col-4 text-center" th:each="skill : ${otherskills}">
+                    <div th:replace="fragments/board :: skillformat(skillparameter=${skill})"></div>
+                </div>
+            </div>  
+            
         </div>
         
         <div class="col-2">
             
         </div>
+
+
         <span th:if="${username == currentuser}">
-            <form th:action="@{/user/postskill}" method="POST">
-                <div class="form-group">
-                    <input type="text" class="form-control" name="skilldescription" placeholder="Write a description of your skill here"/>
-                </div>
-                <button type="submit" class="btn btn-default">Post skill</button>
-            </form>
+            
         </span>
         <span th:unless="${username == currentuser}">
             <form th:action="@{/{username}/requestconnection(username=${username})}" method="POST">
@@ -32,14 +68,8 @@
             </form>
         </span>
         <h4><span th:text="${username}">Username</span>'s skills:</h4>
-        <div th:each="skill : ${currentprofileaccount.skills}">
-            <div th:replace="fragments/board :: skillformat(skillparameter=${skill})"></div>
-        </div>
         
-        <h4>Posts by <span th:text="${username}">Username</span>:</h4>
-        <div th:each="post : ${currentprofileaccount.posts}">
-            <div th:replace="fragments/board :: postformat(postparameter=${post})"></div>
-        </div>
+        
 
 
         <div th:replace="fragments/general :: links"></div>

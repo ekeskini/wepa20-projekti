@@ -10,6 +10,7 @@ import java.io.IOException;
 import static java.lang.System.out;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -44,24 +45,32 @@ public class ProfileController {
         String currentuser = SecurityContextHolder
                 .getContext().getAuthentication().getName();
         
-        model.addAttribute("currentuser", currentuser);
-        
+        model.addAttribute("currentuser", currentuser);       
         model.addAttribute("currentprofileaccount", currentprofileaccount);
+        
+        model.addAttribute("top3skills", profBuilder.getTopSkills(currentprofileaccount));
+        
+        List<Skill> otherSkills = profBuilder.getSkillsOrdered(currentprofileaccount);
+        model.addAttribute("otherskills", otherSkills.subList(3, otherSkills.size() - 1));
+        
         return "profilepage";
     }
     @PostMapping("/user/{username}/{skillid}")
     public String postRecommendation(@PathVariable String username, 
             @PathVariable Long skillid, @RequestParam String recommendationdescription) {
+        
         String currentusername = SecurityContextHolder
             .getContext().getAuthentication().getName();
+        
         //Check that user is not recommending themselves
         if (currentusername.equals(username)) {
             return "redirect:/user/" + username;
         }          
         Account currentuser = profBuilder.getAccountByUsername(currentusername);
+        Skill s = profBuilder.getSkillById(skillid);
         Recommendation newrecommendation = 
-                new Recommendation(recommendationdescription, profBuilder.getSkillById(skillid), currentuser);
-        profBuilder.saveNewRecommendation(newrecommendation);
+                new Recommendation(recommendationdescription, s, currentuser);
+        profBuilder.saveNewRecommendation(s, newrecommendation);
         return "redirect:/user/" + username;
     }
     
@@ -70,7 +79,7 @@ public class ProfileController {
         String currentusername = SecurityContextHolder
                 .getContext().getAuthentication().getName();
         Account currentuser = profBuilder.getAccountByUsername(currentusername);
-        Skill newskill = new Skill(skilldescription, currentuser, new ArrayList<>());
+        Skill newskill = new Skill(skilldescription, currentuser, new ArrayList<>(), 0);
         profBuilder.saveNewSkill(newskill);
         return "redirect:/user/" + currentusername;
     }
@@ -79,9 +88,10 @@ public class ProfileController {
     @ResponseBody
     public byte[] getProfilePic(@PathVariable String username) throws IOException {
         byte[] profilepic = profBuilder.getAccountByUsername(username).getProfilePic();
-        System.out.println(System.getProperty("user.dir"));
+        
         if (profilepic.length == 0) {
-            System.out.println("jere");
+            
+            //clumsy solution to the placeholder - no time to implemented through thymeleaf :)
             return Files.toByteArray(Paths.get("./src/main/resources/public/img/placeholder.jpg").toFile());
         }
         return profilepic;
