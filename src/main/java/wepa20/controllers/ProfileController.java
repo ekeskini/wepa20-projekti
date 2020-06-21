@@ -58,6 +58,7 @@ public class ProfileController {
         }
         return "profilepage";
     }
+    @Transactional
     @PostMapping("/user/{username}/{skillid}")
     public String postRecommendation(@PathVariable String username, 
             @PathVariable Long skillid, @RequestParam String recommendationdescription) {
