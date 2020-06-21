@@ -7,6 +7,7 @@ package wepa20.controllers;
 
 import java.util.Iterator;
 import java.util.List;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
@@ -26,6 +27,7 @@ public class SearchController {
     @Autowired
     private AccountRepository accountRepository;
     
+    @Transactional
     @GetMapping("/search")
     public String search(Model model, @RequestParam String term) {      
         
