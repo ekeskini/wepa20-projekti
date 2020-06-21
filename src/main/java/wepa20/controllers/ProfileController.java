@@ -11,6 +11,7 @@ import static java.lang.System.out;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -86,6 +87,7 @@ public class ProfileController {
         return "redirect:/user/" + currentusername;
     }
     
+    @Transactional
     @GetMapping(path = "/user/{username}/profilepic", produces="image/*")
     @ResponseBody
     public byte[] getProfilePic(@PathVariable String username) throws IOException {
