@@ -32,6 +32,10 @@ public class AccountController {
     @Autowired
     private PasswordEncoder passwordEncoder;
     
+    @GetMapping("/login")
+    public String loginView() {
+        return "login";
+    }
     @GetMapping("/registration")
     public String registrationView() {
         return "registration";

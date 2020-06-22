@@ -13,7 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
-public class DevelopmentSecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class CustomSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
     
@@ -24,9 +24,8 @@ public class DevelopmentSecurityConfiguration extends WebSecurityConfigurerAdapt
         
         http.authorizeRequests()
                 .antMatchers("/registration").permitAll()
-                .antMatchers("/h2-console","/h2-console/**").permitAll()
                 .anyRequest().authenticated();
-        http.formLogin().permitAll().and()
+        http.formLogin().loginPage("/login").permitAll().and()
                 .logout().permitAll();
     }
     
