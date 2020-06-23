@@ -54,7 +54,7 @@ public class ProfileController {
         List<Skill> otherSkills = profBuilder.getSkillsOrdered(currentprofileaccount);
         
         if (otherSkills.size() > 3) {
-            model.addAttribute("otherskills", otherSkills.subList(3, otherSkills.size() - 1));
+            model.addAttribute("otherskills", otherSkills.subList(3, otherSkills.size()));
         }
         return "profilepage";
     }
