@@ -12,6 +12,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
@@ -27,15 +28,19 @@ import org.hibernate.annotations.Type;
 public class Account extends AbstractPersistable<Long>{
 	@NotEmpty
 	private String firstName;
-	@NotEmpty
+	
+        @NotEmpty
 	private String lastName;
-	@NotEmpty
-        @Column(unique=true)
+	
+        @NotEmpty
+        @Column(unique=true)     
+        @Size(min = 3, max = 15)
 	private String username;
-	@NotEmpty
+	
+        @NotEmpty
         private String password;
         
-        @OneToOne
+        @OneToOne(mappedBy = "account")
         @Basic(fetch = FetchType.LAZY)
         private AccountConnectionManager connectionManager;
         

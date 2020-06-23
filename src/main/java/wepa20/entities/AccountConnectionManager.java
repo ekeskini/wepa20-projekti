@@ -33,9 +33,9 @@ public class AccountConnectionManager extends AbstractPersistable<Long>{
     private List<String> acceptedConnections = new ArrayList<>();
     
     @OneToMany(mappedBy="receiver")
-    private List<ConnectionRequest> receivedRequests;
+    private List<ConnectionRequest> receivedRequests = new ArrayList<>();
     @OneToMany(mappedBy="sender")
-    private List<ConnectionRequest> sentRequests;
+    private List<ConnectionRequest> sentRequests = new ArrayList<>();
     
     @Transactional
     public void addAcceptedConnection(String username) {

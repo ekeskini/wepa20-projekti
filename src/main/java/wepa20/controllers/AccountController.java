@@ -7,6 +7,7 @@ package wepa20.controllers;
 
 import java.util.ArrayList;
 import javax.transaction.Transactional;
+import javax.validation.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -23,7 +24,7 @@ import wepa20.repositories.AccountRepository;
  * @author Elias Keski-Nisula
  */
 @Controller
-@Transactional
+
 public class AccountController {
     @Autowired
     private AccountRepository accountRepository;
@@ -44,17 +45,23 @@ public class AccountController {
     @PostMapping("/registration")
     public String createAccount(@RequestParam String firstName, @RequestParam String lastName,
             @RequestParam String username, @RequestParam String password) {
-        Account acc = new Account();
-        acc.setFirstName(firstName);
-        acc.setLastName(lastName);
-        acc.setUsername(username);       
-        acc.setPassword(passwordEncoder.encode(password));
-        acc.setProfilePic(new byte[0]);
-        AccountConnectionManager acm = 
+        try {
+            Account acc = new Account();
+            acc.setFirstName(firstName);
+            acc.setLastName(lastName);
+            acc.setUsername(username);       
+            acc.setPassword(passwordEncoder.encode(password));
+            acc.setProfilePic(new byte[0]);           
+            accountRepository.save(acc);
+            AccountConnectionManager acm = 
                 new AccountConnectionManager(acc, new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
-        acmRepository.save(acm);
-        acc.setConnectionManager(acm);
-        accountRepository.save(acc);
+            acc.setConnectionManager(acm);
+            acmRepository.save(acm);        
+            //clumsy due to lack of accountservice (to be fixed)
+            accountRepository.save(acc);
+        } catch (Exception e) {
+            return "redirect:/registration?error";
+        }
         return "redirect:/";
     }
 }

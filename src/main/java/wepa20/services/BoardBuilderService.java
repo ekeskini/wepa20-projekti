@@ -44,9 +44,7 @@ public class BoardBuilderService {
     public void addPostToAccount(String username, Post post) {
         getAccountByUsername(username).getPosts().add(post);
     }
-    public List<Comment> getCommentsByPost(Post post) {
-        return commentRepository.findCommentByParent(post);
-    }
+    
     public Post getPostById(Long id) {
         return postService.getPostById(id);
     }

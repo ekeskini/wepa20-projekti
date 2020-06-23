@@ -5,6 +5,7 @@
  */
 package wepa20.repositories;
 
+import javax.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import wepa20.entities.AccountConnectionManager;
 
@@ -12,6 +13,7 @@ import wepa20.entities.AccountConnectionManager;
  *
  * @author Elias Keski-Nisula
  */
+@Transactional
 public interface AccountConnectionManagerRepository extends JpaRepository<AccountConnectionManager, Long>{
     
 }
